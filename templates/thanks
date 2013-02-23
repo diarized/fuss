@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+Thank you for registration.<br/>
+Now you can review current <a href="/fuss/status">status of turnamanet</a> or <a href=""/fuss/team_joining">join a team</a>.
+{% endblock %}
