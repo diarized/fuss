@@ -1,5 +1,5 @@
 from django import forms
-from models import Player
+from models import Player, Team
 
 class PlayerRegistrationForm(forms.ModelForm):
     # nick = forms.CharField(max_length=32)
@@ -8,5 +8,10 @@ class PlayerRegistrationForm(forms.ModelForm):
     # e_mail_me = forms.BooleanField(required=False)
     class Meta:
         model = Player
+        exclude = ('points', 'wins')
+
+class TeamRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Team
         exclude = ('points', 'wins')
 

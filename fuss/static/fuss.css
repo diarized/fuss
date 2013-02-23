@@ -3,12 +3,13 @@ body, #header, #sidebar {
   padding: 0;
   background: steelblue;
   color: white;
-  font: 12px/1.4em Verdana, sans-serif;
+  font: 12px/1.4em sans-serif;
 }
 
 #header {  background-color: lightskyblue;
-  color: navy;
+  color: black;
   border-bottom: 1em solid darkorange;
+  text-shadow: 0.2em 0.2em 0.4em steelblue;
 }
 
 #header h1 {
@@ -44,6 +45,25 @@ body, #header, #sidebar {
   border-right: 0.8em solid darkorange;
 }
 
+#sidebar ul, ul li {
+  margin: 0;
+  padding:0;
+  display: block;
+  list-style: none;
+}
+
+#sidebar ul a:link, ul a:visited {
+  display: block;
+  text-decoration: none;
+  background-color: lightskyblue;
+  color: white;
+  padding: 0.5em;
+}
+
+#sidebar ul a:hover {
+  background-color: steelblue;
+}
+
 #content {
   float: left;
   width: 75%;
@@ -62,22 +82,16 @@ body, #header, #sidebar {
   width: 15em;
 }
 
-#sidebar ul, ul li {
-  margin: 0;
-  padding:0;
-  display: block;
-  list-style: none;
+#content a {
+  color: orange;
+}
+#content table {
+  background-color: darkgrey;
 }
 
-#sidebar ul a:link, ul a:visited {
-  display: block;
-  text-decoration: none;
-  background-color: lightskyblue;
-  color: white;
-  padding: 0.5em;
-}
-
-#sidebar ul a:hover {
-  background-color: steelblue;
+#content table th {
+  width: 10em;
+  background-color: darkorange;
+  color: black;
 }
 

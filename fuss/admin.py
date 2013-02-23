@@ -6,7 +6,7 @@ class PlayerAdmin(admin.ModelAdmin):
 
 
 class TeamAdmin(admin.ModelAdmin):
-    readonly_fields=('number', 'points', 'wins')
+    readonly_fields=('points', 'wins')
 
 
 class SingleMatchAdmin(admin.ModelAdmin):
