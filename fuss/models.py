@@ -17,11 +17,11 @@ class Player(Competitor):
 
 
 class Team(Competitor):
-    number = models.IntegerField(primary_key=True)
-    player1 = models.ForeignKey(Player, null=True, related_name="plyer_one")
-    player2 = models.ForeignKey(Player, null=True, related_name="player_two")
+    #number = models.IntegerField(primary_key=True)
+    player1 = models.ForeignKey(Player, related_name="plyer_one")
+    player2 = models.ForeignKey(Player, related_name="player_two")
     def __unicode__(self):
-        return "Team {0}: {1}, {2}".format(self.number, self.player1.nick, self.player2.nick)
+        return "Team: {1}, {2}".format(self.player1.nick, self.player2.nick)
 
 
 class Match(models.Model):
