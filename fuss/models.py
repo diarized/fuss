@@ -10,6 +10,8 @@ class Competitor(models.Model):
 class Player(Competitor):
     nick = models.CharField(max_length=32, null=False, unique=True)
     full_name = models.CharField(max_length=255, blank=True)
+    e_mail = models.EmailField(null=True, blank=True, unique=True)
+    e_mail_me = models.BooleanField(default=False)
     def __unicode__(self):
         return self.nick
 
@@ -25,9 +27,9 @@ class Team(Competitor):
 class Match(models.Model):
     home_result = models.IntegerField()
     guest_result = models.IntegerField()
-    finished = models.BooleanField()
+    finished = models.BooleanField(default=False)
     def set_result(self, h, g):
-        if finished:
+        if self.finished:
             raise Exception, "Match already finished."
         self.home_result = h
         self.guest_result = g
@@ -38,7 +40,7 @@ class Match(models.Model):
         elif h < g:
             self.winner = g
             self.guest.wins += 1
-        finished = True
+        self.finished = True
     class Meta:
         abstract = True
 

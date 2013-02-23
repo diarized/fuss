@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}/fuss.css" />
     <title>{% block title %}AkaFun{% endblock %}</title>
 </head>
 
 <body>
+    <div id="header">
+        <h1>Let's have some fun</h1>
+    </div>
+    <div id="wrap">
+    <div id="leftwrap">
     <div id="sidebar">
         {% block sidebar %}
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/fuss/">Fussball</a></li>
+            <li><a href="/fuss/thanks/">Home</a></li>
+            <li><a href="/admin/">Admin site</a></li>
+            <li><a href="/fuss/player_registration">Player registration</a></li>
         </ul>
         {% endblock %}
     </div>
 
     <div id="content">
         {% block content %}{% endblock %}
+    </div>
+    </div>
     </div>
 </body>
 </html>
