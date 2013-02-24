@@ -81,15 +81,19 @@ def list_doublesmatches(request):
 
 
 def set_match_score(request, match_no):
-    match = models.SingleMatch.objects.get(pk=match_no)
-    if match:
+    try:
+        match = models.SingleMatch.objects.get(pk=match_no)
+    except ObjectDoesNotExist:
+        try:
+            match = models.DoublesMatch.objects.get(pk=match_no)
+        except ObjectDoesNotExist:
+            return render(request, 'error_message',
+                    {'message': "No such a match (number {0})".format(match_no)})
+        else:
+            player_type = "team"
+    else:
         player_type = "player"
-    else:    
-        match = models.DoublesMatch.objects.get(pk=match_no)
-        player_type = "team"
-    if not match:
-        return render(request, 'error_message',
-                {'message': "No such a match (number {0})".format(match_no)})
+
     if request.method == 'POST':
         form = forms.MatchScoringForm(request.POST)
         if form.is_valid():
