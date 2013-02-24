@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to fussball turnament!</h1>
+<p>Please register, join a team, update scores or review turnament status.</p>
+{% endblock %}
