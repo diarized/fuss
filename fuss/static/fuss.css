@@ -7,15 +7,17 @@ body, #header, #sidebar {
 }
 
 #header {  background-color: lightskyblue;
-  color: black;
-  border-bottom: 1em solid darkorange;
-  text-shadow: 0.2em 0.2em 0.4em steelblue;
 }
 
 #header h1 {
   margin: 0;
-  padding:1em;
+  padding: 12px;
+  font: 3em sans-serif;
+  font-weight: bold;
   text-align: right;
+  color: black;
+  border-bottom: 12px solid darkorange;
+  text-shadow: 0.2em 0.2em 0.4em steelblue;
 }
 
 #wrap {
@@ -95,3 +97,11 @@ body, #header, #sidebar {
   color: black;
 }
 
+#footer {
+  clear: both;
+  background-color: lightgrey;
+  color: navy;
+  padding: 0.5em;
+  font: 8px/1em sans-serif;
+  text-align: right;
+}

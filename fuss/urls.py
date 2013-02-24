@@ -1,7 +1,11 @@
-from views import player_registration, team_registration, thanks
+import controller
 from django.conf.urls import patterns, url
 urlpatterns = patterns('',
-        url(r'player_registration', player_registration),
-        url(r'team_registration', team_registration),
-        url(r'thanks', thanks),
+        url(r'^$', controller.index),
+        url(r'^player_registration', controller.player_registration),
+        url(r'^team_registration', controller.team_registration),
+        url(r'^list_singlematches', controller.list_singlematches),
+        url(r'^list_doublesmatches', controller.list_doublesmatches),
+        url(r'^set_match_score/(?P<match_no>\d+)/$', controller.set_match_score),
+        url(r'^thanks', controller.thanks),
 )

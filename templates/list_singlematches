@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{% if matches %}
+<table>
+<tr>
+<th>player 1</th><th>player 2</th><th>result</th>
+</tr>
+{% for match in matches %}
+<tr>
+<td>{{ match.home }}</td>
+<td>{{ match.guest }}</td>
+{% if match.finished %}
+<td>{{ match.home_result }} : {{ match.guest_result }}</td>
+{% else %}
+<td><a href="/fuss/set_singlematch_score/{{ match.pk }}">Set score</a></td>
+{% endif %}
+</tr>
+{% endfor %}
+</table>
+{% else %}
+No registered players, so no matches. Please <a href="/fuss/player_registration">register</a> at least two players.
+{% endif %}
+{% endblock %}

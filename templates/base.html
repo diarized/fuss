@@ -17,7 +17,9 @@
             <li><a href="/fuss/thanks/">Home</a></li>
             <li><a href="/admin/">Admin site</a></li>
             <li><a href="/fuss/player_registration">Player registration</a></li>
+            <li><a href="/fuss/list_singlematches">One player matches</a></li>
             <li><a href="/fuss/team_registration">Team registration</a></li>
+            <li><a href="/fuss/list_doublesmatches">Team matches</a></li>
         </ul>
         {% endblock %}
     </div>
@@ -25,7 +27,12 @@
     <div id="content">
         {% block content %}{% endblock %}
     </div>
+  </div>
+    <div id="footer">
+      {% block footer %}
+      Site maintainer: <a href="mailto:my.home.my.castle@gmail.com">Artur Kaminski</a>. Fork on <a href="https://github.com/diarized/fuss">GitHub</a>
+      {% endblock %}
     </div>
-    </div>
+  </div>
 </body>
 </html>
