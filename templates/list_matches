@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load fusstags %}
 {% block content %}
 {% if matches %}
 <table>
@@ -7,8 +8,8 @@
 </tr>
 {% for match in matches %}
 <tr>
-<td>{{ match.home }}</td>
-<td>{{ match.guest }}</td>
+<td>{{ match.home|get_name }}</td>
+<td>{{ match.guest|get_name }}</td>
 {% if match.finished %}
 <td>{{ match.home_result }} : {{ match.guest_result }}</td>
 {% else %}
