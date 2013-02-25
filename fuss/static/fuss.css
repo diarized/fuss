@@ -97,6 +97,13 @@ body, #header, #sidebar {
   color: black;
 }
 
+#content strong {
+  padding: 0 0 0 1em;
+  color: navy;
+  font-size: large;
+  font-weight: normal;
+}
+
 #footer {
   clear: both;
   background-color: lightgrey;

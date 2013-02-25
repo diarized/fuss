@@ -19,6 +19,6 @@
 {% endfor %}
 </table>
 {% else %}
-No registered {{ player_type }}, so no matches. Please <a href="/fuss/{{ player_type }}_registration">register</a> at least two {{ player_type }}s.
+No registered at least two {{ player_type }}s, so no matches. Please <a href="/fuss/{{ player_type }}_registration">register</a> a {{ player_type }}.
 {% endif %}
 {% endblock %}

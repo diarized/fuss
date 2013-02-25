@@ -24,7 +24,7 @@ def player_registration(request):
                 )
             new_player.save()
             # mailing_list.append(e_mail)
-            return HttpResponseRedirect('/fuss/list_singlematches')
+            return HttpResponseRedirect('/fuss/list_players')
     else:
         form = forms.PlayerRegistrationForm()
 
@@ -47,7 +47,7 @@ def team_registration(request):
                     player2   = player2,
                 )
             new_team.save()
-            return HttpResponseRedirect('/fuss/list_doublesmatches')
+            return HttpResponseRedirect('/fuss/list_teams')
     else:
         form = forms.TeamRegistrationForm()
 
@@ -69,9 +69,18 @@ def check_player_teammate(player, partner):
     return True
 
 
+def list_players(request):
+    players = models.Player.objects.all().order_by('-points')
+    return render(request, 'list_players', {'players': players, 'player_type': 'player'})
+
+
+def list_teams(request):
+    teams = models.Team.objects.all()
+    return render(request, 'list_teams', {'teams': teams, 'player_type': 'team'})
+
+
 def list_singlematches(request):
     all_matches = models.SingleMatch.objects.all()
-    #return render(request, 'list_singlematches', {'matches': all_matches})
     return render(request, 'list_matches', {'matches': all_matches, 'player_type': 'player' })
 
 
@@ -103,9 +112,10 @@ def set_match_score(request, match_no):
                 match.set_result(home_score, guest_score)
             except ValueError as e:
                 return render(request, 'error_message', {'message': e})
-            message = """Thank you for the game!
-            Now you can review status of the turnament"""
-            return render(request, 'thanks', { 'message': message })
+            if player_type == "player":
+                return HttpResponseRedirect('/fuss/list_singlematches')
+            else:
+                return HttpResponseRedirect('/fuss/list_doublesmatches')
     else:
         form = forms.MatchScoringForm()
 

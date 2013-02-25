@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Welcome to fussball turnament!</h1>
-<p>Please register, join a team, update scores or review turnament status.</p>
+<p>Please <a href="/fuss/player_registration">register</a>,
+<a href="/fuss/team_registration">join a team</a>
+or update scores (<a href="/fuss/list_singlematches">single</a>
+or <a href="/fuss/list_doublesmatches">doubles</a>).</p>
 {% endblock %}

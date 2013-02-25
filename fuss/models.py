@@ -70,18 +70,21 @@ class Match(models.Model):
             raise ValueError("Match already finished.")
         if h<0 or g<0:
             raise ValueError("Negative? Crushed to death?")
+
         self.home_result = h
         self.guest_result = g
 
         if h > g:
             self.winner = self.home
-            self.home.wins += 1
         elif h < g:
             self.winner = self.guest
-            self.guest.wins += 1
         else:
             raise ValueError("No mercy, sombody MUST win. Sorry.")
+        self.winner.wins += 1
+        self.winner.points += 3
+        self.winner.save()
         self.finished = True
+        self.save()
 
 #    class Meta:
 #        abstract = True

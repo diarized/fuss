@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% if teams %}
+<table>
+<tr>
+<th>Team members</th><th>Wins</th><th>Points</th>
+</tr>
+{% for team in teams %}
+<tr>
+<td>{{ team.player1.nick }}, {{ team.player2.nick }}</td>
+<td>{{ team.wins }}</td>
+<td>{{ team.points }}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+No registered {{ player_type }}. Please <a href="/fuss/{{ team_type }}_registration">register</a> a {{ player_type }}.
+{% endif %}
+{% endblock %}
