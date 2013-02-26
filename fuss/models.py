@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.dispatch import receiver
 
 class Competitor(models.Model):
     points = models.IntegerField(default=0)
@@ -20,18 +20,6 @@ class Player(Competitor):
     def get_name(self):
         return self.__unicode__()
 
-    def save(self, *args, **kwargs):
-        super(Player, self).save(*args, **kwargs)
-        players = Player.objects.exclude(pk=self.pk)
-        if len(players) == 0:
-            return
-        for player in players:
-            match = SingleMatch(
-                    home = player,
-                    guest = self
-                )
-            match.save()
-
 
 class Team(Competitor):
     player1 = models.ForeignKey(Player, related_name="plyer_one")
@@ -46,19 +34,6 @@ class Team(Competitor):
     def get_name(self):
         return "{0}, {1}".format(self.player1.nick, self.player2.nick)
 
-    def save(self, *args, **kwargs):
-        super(Team, self).save(*args, **kwargs)
-        teams = Team.objects.exclude(pk=self.pk)
-        if len(teams) == 0:
-            return
-        for team in teams:
-            match = DoublesMatch(
-                    home = team,
-                    guest = self
-                )
-            match.save()
-
-
 
 class Match(models.Model):
     home_result = models.IntegerField(null=True)
@@ -66,8 +41,9 @@ class Match(models.Model):
     finished = models.BooleanField(default=False)
 
     def set_result(self, h, g):
-        if self.finished:
-            raise ValueError("Match already finished.")
+        match_type = type(self)
+        if self.finished is True:
+            raise ValueError("Match already finished (match of type {0}).".format(match_type))
         if h<0 or g<0:
             raise ValueError("Negative? Crushed to death?")
 
@@ -80,14 +56,17 @@ class Match(models.Model):
             self.winner = self.guest
         else:
             raise ValueError("No mercy, sombody MUST win. Sorry.")
+        self.home.points += h
+        self.guest.points += g
+        self.home.save()
+        self.guest.save()
         self.winner.wins += 1
-        self.winner.points += 3
         self.winner.save()
         self.finished = True
         self.save()
 
-#    class Meta:
-#        abstract = True
+    class Meta:
+        abstract = True
 
 
 class SingleMatch(Match):
@@ -101,12 +80,56 @@ class SingleMatch(Match):
 
 class DoublesMatch(Match):
     home = models.ForeignKey(Team, null=False, related_name="home")
-    guest = models.ForeignKey(Team, related_name="guest")
+    guest = models.ForeignKey(Team, null=False, related_name="guest")
     winner = models.ForeignKey(Team, null=True)
 
     class Meta:
         verbose_name_plural = "DoublesMatches"
 
 
+def match_exists(player, opponent):
+    player_type = type(player)
+    if player_type == Player:
+        match_type = SingleMatch
+    elif player_type == Team:
+        match_type = DoublesMatch
+    else:
+        raise TypeError("Don't know player type {0}".format(player_type))
+
+    try:
+        match_type.objects.get(home=player, guest=opponent)
+    except match_type.DoesNotExist:
+        try:
+            match_type.objects.get(home=opponent, guest=player)
+        except match_type.DoesNotExist:
+            return False
+    return True
+
+
+def create_match(player, opponent):
+    player_type = type(player)
+    if player_type == Player:
+        match_type = SingleMatch
+    elif player_type == Team:
+        match_type = DoublesMatch
+    else:
+        raise TypeError("Don't know player type {0}".format(player_type))
+
+    match = match_type(home=player, guest=opponent)
+    match.save()
+
+
+def check_matches_list(players):
+    for player in players:
+        for opponent in (o for o in players if o is not player):
+            if not match_exists(player, opponent):
+                create_match(player, opponent)
+ 
+
+@receiver(models.signals.post_save, sender=Team)
+@receiver(models.signals.post_save, sender=Player)
+def check_singlematches_list(sender, **kwargs):
+    players = sender.objects.all()
+    check_matches_list(players)
 
 

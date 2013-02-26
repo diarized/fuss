@@ -79,29 +79,35 @@ def list_teams(request):
     return render(request, 'list_teams', {'teams': teams, 'player_type': 'team'})
 
 
-def list_singlematches(request):
-    all_matches = models.SingleMatch.objects.all()
-    return render(request, 'list_matches', {'matches': all_matches, 'player_type': 'player' })
-
-
-def list_doublesmatches(request):
-    all_matches = models.DoublesMatch.objects.all()
-    return render(request, 'list_matches', {'matches': all_matches, 'player_type': 'team' })
-
-
-def set_match_score(request, match_no):
-    try:
-        match = models.SingleMatch.objects.get(pk=match_no)
-    except ObjectDoesNotExist:
-        try:
-            match = models.DoublesMatch.objects.get(pk=match_no)
-        except ObjectDoesNotExist:
-            return render(request, 'error_message',
-                    {'message': "No such a match (number {0})".format(match_no)})
-        else:
-            player_type = "team"
-    else:
+def list_matches(request, match_type):
+    if match_type == 's':
+        mt = models.SingleMatch
         player_type = "player"
+    elif match_type == 'd':
+        mt = models.DoublesMatch
+        player_type = "team"
+    else:
+        return render(request, 'error_message',
+                {'message': "No such a match type: {0}".format(match_type)})
+    all_matches = mt.objects.all()
+    return render(request, 'list_matches', {'matches': all_matches, 'player_type': player_type })
+
+
+def set_match_score(request, match_type, match_no):
+    if match_type == 's':
+        mt = models.SingleMatch
+        player_type = "player"
+    elif match_type == 'd':
+        mt = models.DoublesMatch
+        player_type = "team"
+    else:
+        return render(request, 'error_message',
+                {'message': "No such a match type: {0}".format(match_type)})
+    try:
+        match = mt.objects.get(pk=match_no)
+    except ObjectDoesNotExist:
+        return render(request, 'error_message',
+                {'message': "No such a match (number {0})".format(match_no)})
 
     if request.method == 'POST':
         form = forms.MatchScoringForm(request.POST)
@@ -113,9 +119,9 @@ def set_match_score(request, match_no):
             except ValueError as e:
                 return render(request, 'error_message', {'message': e})
             if player_type == "player":
-                return HttpResponseRedirect('/fuss/list_singlematches')
+                return HttpResponseRedirect('/fuss/list/s/matches')
             else:
-                return HttpResponseRedirect('/fuss/list_doublesmatches')
+                return HttpResponseRedirect('/fuss/list/d/matches')
     else:
         form = forms.MatchScoringForm()
 

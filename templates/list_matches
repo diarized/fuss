@@ -4,16 +4,17 @@
 {% if matches %}
 <table>
 <tr>
-<th>Home</th><th>Guest</th><th>result</th>
+<th style="width: 2em">ID</th><th>Home</th><th>Guest</th><th>result</th>
 </tr>
 {% for match in matches %}
 <tr>
+<td>{{ match.pk }}</td>
 <td>{{ match.home|get_name }}</td>
 <td>{{ match.guest|get_name }}</td>
 {% if match.finished %}
 <td>{{ match.home_result }} : {{ match.guest_result }}</td>
 {% else %}
-<td><a href="/fuss/set_match_score/{{ match.pk }}">Set score</a></td>
+<td><a href="/fuss/set/{{ match|get_match_type }}/{{ match.pk }}/score">Set score</a></td>
 {% endif %}
 </tr>
 {% endfor %}
