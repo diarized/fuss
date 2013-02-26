@@ -75,7 +75,7 @@ def list_players(request):
 
 
 def list_teams(request):
-    teams = models.Team.objects.all()
+    teams = models.Team.objects.all.order_by('-points')
     return render(request, 'list_teams', {'teams': teams, 'player_type': 'team'})
 
 
@@ -129,8 +129,6 @@ def set_match_score(request, match_type, match_no):
             { 'form': form, 'player_type': player_type, 'match': match })
 
     
-
-
 def thanks(request):
     message = "Thank you for using this site."
     return render(request, 'thanks',  { 'message': message })

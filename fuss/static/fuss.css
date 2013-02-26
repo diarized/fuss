@@ -44,7 +44,7 @@ body, #header, #sidebar {
   left: 80%;
   overflow: hidden;
   background-color: lightskyblue;
-  border-right: 0.8em solid darkorange;
+  border-right: 10px solid darkorange;
 }
 
 #sidebar ul, ul li {
@@ -73,8 +73,8 @@ body, #header, #sidebar {
   left: 80%;
   overflow: hidden;
   padding: 1em;
-  border-left: 0.8em solid darkorange;
-  margin-left: -0.8em;
+  border-left: 10px solid darkorange;
+  margin-left: -10px;
   background-color: steelblue;
 }
 
