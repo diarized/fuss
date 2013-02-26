@@ -18,3 +18,5 @@ urlpatterns = patterns('',
     url(r'^fuss/', include('fuss.urls')),
     (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/favicon.ico'}),
 )
+
+

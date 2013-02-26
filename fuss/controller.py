@@ -133,3 +133,4 @@ def thanks(request):
     message = "Thank you for using this site."
     return render(request, 'thanks',  { 'message': message })
 
+
