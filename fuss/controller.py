@@ -75,7 +75,7 @@ def list_players(request):
 
 
 def list_teams(request):
-    teams = models.Team.objects.all.order_by('-points')
+    teams = models.Team.objects.all().order_by('-points')
     return render(request, 'list_teams', {'teams': teams, 'player_type': 'team'})
 
 
