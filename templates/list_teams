@@ -14,6 +14,6 @@
 {% endfor %}
 </table>
 {% else %}
-No registered {{ player_type }}. Please <a href="/fuss/{{ team_type }}_registration">register</a> a {{ player_type }}.
+No registered {{ player_type }}. Please <a href="/fuss/{{ player_type }}_registration">register</a> a {{ player_type }}.
 {% endif %}
 {% endblock %}
