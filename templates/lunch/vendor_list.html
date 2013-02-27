@@ -1,0 +1,11 @@
+{% extends "lunch/base.html" %}
+
+{% block content %}
+    <h2>Vendors</h2>
+    <ul>
+        {% for vendor in object_list %}
+            <li>{{ vendor.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
