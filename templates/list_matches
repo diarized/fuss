@@ -4,13 +4,21 @@
 {% if matches %}
 <table>
 <tr>
-<th style="width: 2em">ID</th><th>Home</th><th>Guest</th><th>result</th>
+<th style="width: 2em"><a href="?order_by=pk">ID</a></th><th><a href="?order_by=home">Home</a></th><th><a href="?order_by=guest">Guest</a></th><th>result</th>
 </tr>
 {% for match in matches %}
 <tr>
 <td>{{ match.pk }}</td>
+{% if match.home_result > match.guest_result %}
+<td>{{ match.home|get_name }} <img src=/media/shield.png /></td>
+<td>{{ match.guest|get_name }}</td>
+{% elif match.home_result < match.guest_result %}
+<td>{{ match.home|get_name }}</td>
+<td>{{ match.guest|get_name }} <img src=/media/shield.png /></td>
+{% else %}
 <td>{{ match.home|get_name }}</td>
 <td>{{ match.guest|get_name }}</td>
+{% endif %}
 {% if match.finished %}
 <td>{{ match.home_result }} : {{ match.guest_result }}</td>
 {% else %}

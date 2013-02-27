@@ -1,23 +1,27 @@
+@import url(http://fonts.googleapis.com/css?family=Racing+Sans+One&subset=latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Spinnaker);
+
 body, #header, #sidebar {
   margin: 0;
   padding: 0;
-  background: steelblue;
+  background-color: steelblue;
   color: white;
-  font: 12px/1.4em sans-serif;
+  font-family: Spinnaker, sans-serif;
 }
 
-#header {  background-color: lightskyblue;
+#header { 
+  background-color: lightskyblue;
 }
 
 #header h1 {
   margin: 0;
-  padding: 12px;
-  font: 3em sans-serif;
+  padding: 0.5em;
+  font: 3em 'Racing Sans One', cursive;
   font-weight: bold;
   text-align: right;
   color: black;
   border-bottom: 12px solid darkorange;
-  text-shadow: 0.2em 0.2em 0.4em steelblue;
+  text-shadow: 0.2em 0.2em 0.2em steelblue;
 }
 
 #wrap {
@@ -25,7 +29,7 @@ body, #header, #sidebar {
   float: left;
   width: 100%;
   overflow: hidden;
-  background: steelblue;
+  background-color: steelblue;
   /*background-color: lightskyblue;*/
 }
 
@@ -59,7 +63,7 @@ body, #header, #sidebar {
   text-decoration: none;
   background-color: lightskyblue;
   color: white;
-  padding: 0.5em;
+  padding: 0.2em;
 }
 
 #sidebar ul a:hover {
@@ -87,6 +91,7 @@ body, #header, #sidebar {
 #content a {
   color: orange;
 }
+
 #content table {
   background-color: darkgrey;
 }
@@ -94,6 +99,10 @@ body, #header, #sidebar {
 #content table th {
   width: 10em;
   background-color: darkorange;
+  color: black;
+}
+
+#content table th a {
   color: black;
 }
 

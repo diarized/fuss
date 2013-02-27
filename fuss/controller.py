@@ -70,12 +70,14 @@ def check_player_teammate(player, partner):
 
 
 def list_players(request):
-    players = models.Player.objects.all().order_by('-points')
+    order_by = request.GET.get('order_by', '-points')
+    players = models.Player.objects.all().order_by(order_by)
     return render(request, 'list_players', {'players': players, 'player_type': 'player'})
 
 
 def list_teams(request):
-    teams = models.Team.objects.all().order_by('-points')
+    order_by = request.GET.get('order_by', '-points')
+    teams = models.Team.objects.all().order_by(order_by)
     return render(request, 'list_teams', {'teams': teams, 'player_type': 'team'})
 
 
@@ -89,7 +91,8 @@ def list_matches(request, match_type):
     else:
         return render(request, 'error_message',
                 {'message': "No such a match type: {0}".format(match_type)})
-    all_matches = mt.objects.all()
+    order_by = request.GET.get('order_by', 'pk')
+    all_matches = mt.objects.all().order_by(order_by)
     return render(request, 'list_matches', {'matches': all_matches, 'player_type': player_type })
 
 
