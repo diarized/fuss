@@ -27,3 +27,7 @@
 *.db
 *.sql
 *.sqlite
+
+# Misc files #
+##############
+*.pid
