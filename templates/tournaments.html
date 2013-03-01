@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load fusstags %}
+{% block content %}
+{% if form %}
+    <h2>New tournament</h2>
+    <form action="/fuss/tournaments/" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+{% endif %}
+{% if tournaments %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Open</th>
+        </tr>
+    {% for tr in tournaments %}
+    <tr>
+        <td>{{ tr.id }}</td>
+        <td>{{ tr.name }}</td>
+        <td>{{ tr.date_created }}</td>
+        <td>{{ tr.opened }}</td>
+    </tr>
+    {% endfor%}
+    </table>
+{% endif %}
+
+{% if all_matches %}
+    {% for matches in all_matches %}
+        {% for match in matches %}
+            <table>
+                <tr>
+                    <th></th>
+                </tr>
+            {% for match in matches %}
+                <tr>
+                    <td>{{ match.pk }}</td>
+                    {% if match.home_result > match.guest_result %}
+                        <td>{{ match.home|get_name }} <img src=/media/shield.png /></td>
+                        <td>{{ match.guest|get_name }}</td>
+                    {% elif match.home_result < match.guest_result %}
+                        <td>{{ match.home|get_name }}</td>
+                        <td>{{ match.guest|get_name }} <img src=/media/shield.png /></td>
+                    {% else %}
+                        <td>{{ match.home|get_name }}</td>
+                        <td>{{ match.guest|get_name }}</td>
+                    {% endif %}
+                    {% if match.finished %}
+                        <td>{{ match.home_result }} : {{ match.guest_result }}</td>
+                    {% else %}
+                        <td><a href="/fuss/set/{{ match|get_match_type }}/{{ match.pk }}/score">Set score</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </table>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% endblock %}
