@@ -1,5 +1,5 @@
 from django.db import models
-from django.dispatch import receiver
+#from django.dispatch import receiver
 
 
 class Tournament(models.Model):
@@ -135,8 +135,8 @@ def check_matches_list(players):
                 create_match(player, opponent)
  
 
-@receiver(models.signals.post_save, sender=Team)
-@receiver(models.signals.post_save, sender=Player)
+#@receiver(models.signals.post_save, sender=Team)
+#@receiver(models.signals.post_save, sender=Player)
 def check_singlematches_list(sender, **kwargs):
     players = sender.objects.all()
     check_matches_list(players)
