@@ -27,3 +27,6 @@
 *.db
 *.sql
 *.sqlite
+
+fuss/build
+fuss/static
