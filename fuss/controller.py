@@ -3,9 +3,52 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 import forms
 import models
+import logging
+logger = logging.getLogger(__name__)
 
 def index(request):
     return render(request, 'index')
+
+
+def no_tournaments():
+    open_tournaments = models.Tournament.objects.all()
+    if len(open_tournaments) == 0:
+        return True
+    return False
+
+
+def tournaments(request, tournament_id=None):
+    if request.method == 'POST':
+        form = forms.TournamentForm(request.POST)
+        if form.is_valid():
+            tr_name = form.cleaned_data['name']
+            tr_opened = form.cleaned_data['opened']
+            logger.debug("name = {0}, opened = {1}".format(tr_name, tr_opened))
+            tr = models.Tournament(
+                    name = tr_name,
+                    opened = tr_opened,
+                    )
+            tr.save()
+        else:
+            return HttpResponseRedirect('/fuss/')
+        return HttpResponseRedirect('/fuss/tournaments/')
+    elif request.method == 'GET':
+        form = forms.TournamentForm()
+        if tournament_id:
+            tournament = models.Tournament.objects.get(pk=tournament_id)
+            single_matches = models.SingleMatch.objects.all()
+            doubles_matches = models.DoublesMatch.objects.all()
+            all_matches = [single_matches, doubles_matches]
+            return render(request, 'tournaments.html', {
+                'tournament': tournament,
+                'all_matches': all_matches,
+                'form': form,
+                })
+        else:
+            tournaments = models.Tournament.objects.all()
+            return render(request, 'tournaments.html', { 'tournaments': tournaments, 'form': form })
+    else:
+        raise ValueError("I cannot process {0} method.".format(request.method))
 
 
 def player_registration(request):
@@ -24,7 +67,7 @@ def player_registration(request):
                 )
             new_player.save()
             # mailing_list.append(e_mail)
-            return HttpResponseRedirect('/fuss/list_players')
+        return HttpResponseRedirect('/fuss/list_players')
     else:
         form = forms.PlayerRegistrationForm()
 
