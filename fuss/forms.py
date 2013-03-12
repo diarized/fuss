@@ -25,3 +25,9 @@ class TournamentForm(forms.ModelForm):
         exclude = ('date_created',)
 
 
+class SingleMatchForm(forms.ModelForm):
+    class Meta:
+        model = models.SingleMatch
+        fields = ('home', 'guest', 'tournament')
+
+

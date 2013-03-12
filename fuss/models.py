@@ -7,6 +7,9 @@ class Tournament(models.Model):
     opened = models.BooleanField(default=False, null=False)
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Competitor(models.Model):
     points = models.IntegerField(default=0)
@@ -49,7 +52,7 @@ class Match(models.Model):
     tournament = models.ForeignKey(Tournament, null=False)
 
     def set_result(self, h, g):
-        if self.tournament.finished:
+        if not self.tournament.opened:
             raise ValueError("The tournament the match belongs to is finished already.")
         match_type = type(self)
         if self.finished is True:
