@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load fusstags %}
+{% block content %}
+<form action="/fuss/singlematches/" method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+{% if singlematches %}
+    <table>
+        <tr>
+            <th style="width: 2em"><a href="?order_by=pk">ID</a></th><th><a href="?order_by=home">Home</a></th><th><a href="?order_by=guest">Guest</a></th><th>result</th>
+        </tr>
+        {% for match in singlematches %}
+            <tr>
+                <td>{{ match.pk }}</td>
+                {% if match.home_result > match.guest_result %}
+                    <td>{{ match.home|get_name }} <img src=/media/shield.png /></td>
+                    <td>{{ match.guest|get_name }}</td>
+                {% elif match.home_result < match.guest_result %}
+                    <td>{{ match.home|get_name }}</td>
+                    <td>{{ match.guest|get_name }} <img src=/media/shield.png /></td>
+                {% else %}
+                    <td>{{ match.home|get_name }}</td>
+                    <td>{{ match.guest|get_name }}</td>
+                {% endif %}
+                {% if match.finished %}
+                    <td>{{ match.home_result }} : {{ match.guest_result }}</td>
+                {% else %}
+                    <td><a href="/fuss/set/{{ match|get_match_type }}/{{ match.pk }}/score">Set score</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    No registered at least two {{ player_type }}s, so no matches. Please <a href="/fuss/{{ player_type }}_registration">register</a> a {{ player_type }}.
+{% endif %}
+{% endblock %}
