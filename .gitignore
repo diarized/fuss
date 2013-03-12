@@ -31,3 +31,5 @@
 # Misc files #
 ##############
 *.pid
+fuss/build
+fuss/static

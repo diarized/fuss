@@ -1,6 +1,6 @@
 # Django settings for akafun project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -90,7 +90,7 @@ SECRET_KEY = '()x+y5^3+=*z_)4$erze0uxki^(cv8_&amp;hmamoja#-xrg!#_o+o'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'django_wsgiserver',
     'fuss',
+    'lunch',
 )
 
 LOGGING = {

@@ -1,5 +1,12 @@
 from django.db import models
-from django.dispatch import receiver
+#from django.dispatch import receiver
+
+
+class Tournament(models.Model):
+    name = models.CharField(max_length=255, null=False, blank=False)
+    opened = models.BooleanField(default=False, null=False)
+    date_created = models.DateTimeField(auto_now_add=True)
+
 
 class Competitor(models.Model):
     points = models.IntegerField(default=0)
@@ -39,16 +46,16 @@ class Match(models.Model):
     home_result = models.IntegerField(null=True)
     guest_result = models.IntegerField(null=True)
     finished = models.BooleanField(default=False)
+    tournament = models.ForeignKey(Tournament, null=False)
 
     def set_result(self, h, g):
+        if self.tournament.finished:
+            raise ValueError("The tournament the match belongs to is finished already.")
         match_type = type(self)
         if self.finished is True:
-            raise ValueError("Match already finished (match of type {0}).".format(match_type))
+            raise ValueError("Match already finished.".format(match_type))
         if h<0 or g<0:
             raise ValueError("Negative? Crushed to death?")
-
-        self.home_result = h
-        self.guest_result = g
 
         if h > g:
             self.winner = self.home
@@ -56,6 +63,8 @@ class Match(models.Model):
             self.winner = self.guest
         else:
             raise ValueError("No mercy, sombody MUST win. Sorry.")
+        self.home_result = h
+        self.guest_result = g
         self.home.points += h
         self.guest.points += g
         self.home.save()
@@ -126,8 +135,8 @@ def check_matches_list(players):
                 create_match(player, opponent)
  
 
-@receiver(models.signals.post_save, sender=Team)
-@receiver(models.signals.post_save, sender=Player)
+#@receiver(models.signals.post_save, sender=Team)
+#@receiver(models.signals.post_save, sender=Player)
 def check_singlematches_list(sender, **kwargs):
     players = sender.objects.all()
     check_matches_list(players)

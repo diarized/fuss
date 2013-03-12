@@ -19,3 +19,9 @@ class MatchScoringForm(forms.ModelForm):
         exclude = ('finished',)
 
 
+class TournamentForm(forms.ModelForm):
+    class Meta:
+        model = models.Tournament
+        exclude = ('date_created',)
+
+
