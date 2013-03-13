@@ -31,3 +31,9 @@ class SingleMatchForm(forms.ModelForm):
         fields = ('home', 'guest', 'tournament')
 
 
+class DoublesMatchForm(forms.ModelForm):
+    class Meta:
+        model = models.DoublesMatch
+        fields = ('home', 'guest', 'tournament')
+
+

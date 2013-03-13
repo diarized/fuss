@@ -89,6 +89,33 @@ def singlematches(request, tournament_id=2):
             { 'form': form, 'singlematches': singlematches })
 
 
+def doublesmatches(request, tournament_id=2):
+    if request.method == 'POST':
+        form = forms.DoublesMatchForm(request.POST)
+        if form.is_valid():
+            player1 = form.cleaned_data['home']
+            player2 = form.cleaned_data['guest']
+            tournament = form.cleaned_data['tournament']
+            tr = models.Tournament.objects.get(name=tournament)
+            if player1 == player2:
+                return render(request, 'error_message', {'message': "Simply not possible."})
+            new_doublesmatch = models.DoublesMatch(
+                    home  = player1,
+                    guest = player2,
+                    tournament = tr,
+                )
+            new_doublesmatch.save()
+            return HttpResponseRedirect('/fuss/doublesmatches/')
+    else:
+        form = forms.DoublesMatchForm()
+
+    if no_tournaments():
+        create_first_tournament()
+    doublesmatches = models.DoublesMatch.objects.all()
+    return render(request, 'doublesmatches.html',
+            { 'form': form, 'doublesmatches': doublesmatches })
+
+
 def check_team(p1, p2):
     return (check_player_teammate(p1, p2) or
         check_player_teammate(p2, p1))

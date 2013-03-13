@@ -1,19 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-{% if teams %}
-<table>
-<tr>
-<th>Player 1</th>
-<th>Player 2</th>
-</tr>
-{% for team in teams %}
-<tr>
-<td>{{ team.player1 }}</td>
-<td>{{ team.player2 }}</td>
-</tr>
-{% endfor %}
-</table>
-{% endif %}
 <form action="/fuss/team_registration/" method="POST">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
