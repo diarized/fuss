@@ -18,7 +18,7 @@
         </tr>
     {% for tr in tournaments %}
     <tr>
-        <td>{{ tr.id }}</td>
+        <td><a href="/fuss/tournaments/{{ tr.id }}/">{{ tr.id }}</a></td>
         <td>{{ tr.name }}</td>
         <td>{{ tr.date_created }}</td>
         <td>{{ tr.opened }}</td>
@@ -28,8 +28,8 @@
 {% endif %}
 
 {% if all_matches %}
-    {% for matches in all_matches %}
-        {% for match in matches %}
+{% comment %}    {% for matches in all_matches %} {% endcomment %}
+        {% for match in singlematches %}
             <table>
                 <tr>
                     <th>ID</th>
@@ -59,6 +59,6 @@
             {% endfor %}
             </table>
         {% endfor %}
-    {% endfor %}
+{% comment %}    {% endfor %} {% endcomment %}
 {% endif %}
 {% endblock %}

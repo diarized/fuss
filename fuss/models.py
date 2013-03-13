@@ -14,6 +14,7 @@ class Tournament(models.Model):
 class Competitor(models.Model):
     points = models.IntegerField(default=0)
     wins = models.IntegerField(default=0)
+    #matches = models.IntegerField(default=0)
     class Meta:
         abstract = True
 
@@ -70,6 +71,8 @@ class Match(models.Model):
         self.guest_result = g
         self.home.points += h
         self.guest.points += g
+        #self.home.matches += 1
+        #self.guest.matches += 1
         self.home.save()
         self.guest.save()
         self.winner.wins += 1

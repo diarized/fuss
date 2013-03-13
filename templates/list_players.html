@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% if players %}
+    <table>
+        <tr>
+            <th>Player name</th>
+            <th>Wins</th>
+            <th>Points</th>
+        </tr>
+        {% for player in players %}
+            <tr>
+                <td>{{ player.nick }}</td>
+                <td>{{ player.wins }}</td>
+                <td>{{ player.points }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    No registered {{ player_type }}. Please <a href="/fuss/{{ player_type }}_registration">register</a> a {{ player_type }}.
+{% endif %}
+{% endblock %}

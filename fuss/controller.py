@@ -24,7 +24,7 @@ def create_first_tournament():
     tr.save()
     return tr
 
-def tournaments(request, tournament_id=1):
+def tournaments(request, tournament_id=None):
     if request.method == 'POST':
         form = forms.TournamentForm(request.POST)
         if form.is_valid():
@@ -49,10 +49,10 @@ def tournaments(request, tournament_id=1):
                 tournaments = models.Tournament.objects.all()
             single_matches = models.SingleMatch.objects.filter(tournament=tournament_id)
             doubles_matches = models.DoublesMatch.objects.filter(tournament=tournament_id)
-            all_matches = [single_matches, doubles_matches]
+            #all_matches = [single_matches, doubles_matches]
             return render(request, 'tournaments.html', {
                 'tournaments': tournaments,
-                'all_matches': all_matches,
+                'singlematches': singlematches,
                 'form': form,
                 })
         else:
@@ -62,7 +62,7 @@ def tournaments(request, tournament_id=1):
         raise ValueError("I cannot process {0} method.".format(request.method))
 
 
-def singlematches(request):
+def singlematches(request, tournament_id=2):
     if request.method == 'POST':
         form = forms.SingleMatchForm(request.POST)
         if form.is_valid():
@@ -105,7 +105,7 @@ def check_player_teammate(player, partner):
 def list_players(request):
     order_by = request.GET.get('order_by', '-points')
     players = models.Player.objects.all().order_by(order_by)
-    return render(request, 'list_players', {'players': players, 'player_type': 'player'})
+    return render(request, 'list_players.html', {'players': players, 'player_type': 'player'})
 
 
 def list_teams(request):
@@ -236,7 +236,7 @@ def check_player_teammate(player, partner):
 def list_players(request):
     order_by = request.GET.get('order_by', '-points')
     players = models.Player.objects.all().order_by(order_by)
-    return render(request, 'list_players', {'players': players, 'player_type': 'player'})
+    return render(request, 'list_players.html', {'players': players, 'player_type': 'player'})
 
 
 def list_teams(request):
