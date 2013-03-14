@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 #from django.dispatch import receiver
 
 
@@ -51,6 +52,7 @@ class Match(models.Model):
     guest_result = models.IntegerField(null=True)
     finished = models.BooleanField(default=False)
     tournament = models.ForeignKey(Tournament, null=False)
+    match_date = models.DateTimeField(default=None, null=True, blank=True)
 
     def set_result(self, h, g):
         if not self.tournament.opened:
@@ -78,6 +80,7 @@ class Match(models.Model):
         self.winner.wins += 1
         self.winner.save()
         self.finished = True
+        self.match_date = datetime.datetime.now()
         self.save()
 
     class Meta:
