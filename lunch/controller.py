@@ -1,9 +1,15 @@
+# encoding: utf-8
+
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 import forms
 import models
 import logging
 logger = logging.getLogger(__name__)
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     return HttpResponseRedirect('/lunch/orders/')
@@ -34,7 +40,7 @@ def order(request, event_id=None):
     else:
         raise exceptions.MethodNotKnown("Method not known: {0}".format(request.method))
 
-
+@login_required
 def vendor(request):
     if request.method == 'POST':
         form = forms.VendorForm(request.POST)
@@ -52,32 +58,36 @@ def vendor(request):
         raise exceptions.MethodNotKnown("Method not known: {0}".format(request.method))
 
 
+@login_required
 def meal(request, vendor_id=None):
     if not vendor_id:
-        return render(request, 'error_message',
+        return render(request, 'lunch/error_message.html',
             {'message': "No vendor id. What to display?"})
     if request.method == 'POST':
         form = forms.MealForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
-            price_str = form.cleaned_data['price']
-            price = price_str.replace(',', '.')
-            return render(request, 'error_message',
-                {'message': "name = {0}, price = {1}, vendor = {3}".format(name, price, vendor_id)})
+            price = form.cleaned_data['price']
+            vendor = models.Vendor.objects.get(pk=vendor_id)
             meal = models.Meal(
                 name = name,
                 price = price,
-                vendor = vendor_id
+                vendor = vendor,
             )
             meal.save()
-        return HttpResponseRedirect('/lunch/meals/{0}'.format(vendor_id))
+            #return render(request, 'lunch/error_message.html',
+            #    {'message': "name = {0}, price = {1}, vendor = {3}".format(name, price, vendor_id)})
+            return HttpResponseRedirect('/lunch/meals/{0}'.format(vendor_id))
+        else:
+            return render(request, 'lunch/error_message.html',
+                {'message': "Form not valid. Panic!"})
     elif request.method == 'GET':
         form = forms.MealForm
         try:
             vendor = models.Vendor.objects.get(pk=vendor_id)
             meals = models.Meal.objects.filter(vendor=vendor)
         except Exception as e:
-            return render(request, 'error_message', {'message': e})
+            return render(request, 'lunch/error_message.html', {'message': e})
         return render(request, 'lunch/meals.html',
         {
             'vendor': vendor,
