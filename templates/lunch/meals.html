@@ -1,0 +1,25 @@
+{% extends "lunch/base.html" %}
+{% block content %}
+<h2>New meal of vendor {{ vendor.name }}</h2>
+<form action="/lunch/meals/{{ vendor.pk }}" method="POST">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% if meals %}
+    <h2>Meals list of vendor {{ vendor.name }}</h2>
+    <table>
+    <tr>
+    <th>ID</th>
+    <th>Meal name</th>
+    <th>Price</th>
+    </tr>
+    {% for meal in meals %}
+    <tr>
+    <td>{{ meal.pk }}</td>
+    <td>{{ meal.name }}</td>
+    <td>{{ meal.price }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

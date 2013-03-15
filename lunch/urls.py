@@ -5,11 +5,10 @@ import controller
 
 urlpatterns = patterns('',
         url(r'^$', controller.index),
-        url(r'^meal$', controller.meal),
-        url(r'^vendor$', controller.vendor),
+#        url(r'^vendors/$', ListView.as_view(model=models.Vendor,)),
+        url(r'^vendors/$', controller.vendor),
+        url(r'^meals/(?P<vendor_id>\d+)$', controller.meal),
+        url(r'^orders/(?P<event_id>\d+)$', controller.order),
         url(r'^event$', controller.event),
-        url(r'^order$', controller.order),
-        url(r'^orders/(?P<order_number>\d+)', controller.order),
-        (r'^vendors/$', ListView.as_view(model=models.Vendor,)),
 )
 

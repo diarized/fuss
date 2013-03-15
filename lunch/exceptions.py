@@ -1,0 +1,1 @@
+class MethodNotKnown(ValueError): pass
