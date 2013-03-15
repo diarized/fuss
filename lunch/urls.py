@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
-from django.views.generic import ListView
-from lunch import models
+#from django.views.generic import ListView
+#from lunch import models
 import controller
 
 urlpatterns = patterns('',
@@ -9,6 +9,6 @@ urlpatterns = patterns('',
         url(r'^vendors/$', controller.vendor),
         url(r'^meals/(?P<vendor_id>\d+)$', controller.meal),
         url(r'^orders/(?P<event_id>\d+)$', controller.order),
-        url(r'^event$', controller.event),
+        url(r'^events/$', controller.event),
 )
 

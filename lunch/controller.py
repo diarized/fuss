@@ -1,10 +1,9 @@
-# -*- encoding: utf8 -*-
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 import forms
-import exceptions
 import models
-
+import logging
+logger = logging.getLogger(__name__)
 
 def index(request):
     return HttpResponseRedirect('/lunch/orders/')

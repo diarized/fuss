@@ -1,5 +1,9 @@
-from fuss.models import Player, Team, SingleMatch, DoublesMatch
+from fuss import models
 from django.contrib import admin
+
+class TournamentAdmin(admin.ModelAdmin):
+    readonly_fields=('name', 'opened')
+
 
 class PlayerAdmin(admin.ModelAdmin):
     readonly_fields=('points', 'wins')
@@ -17,7 +21,8 @@ class DoublesMatchAdmin(admin.ModelAdmin):
     readonly_fields=('winner',)
 
 
-admin.site.register(Player, PlayerAdmin)
-admin.site.register(Team, TeamAdmin)
-admin.site.register(SingleMatch, SingleMatchAdmin)
-admin.site.register(DoublesMatch, DoublesMatchAdmin)
+admin.site.register(models.Tournament, TournamentAdmin)
+admin.site.register(models.Player, PlayerAdmin)
+admin.site.register(models.Team, TeamAdmin)
+admin.site.register(models.SingleMatch, SingleMatchAdmin)
+admin.site.register(models.DoublesMatch, DoublesMatchAdmin)
