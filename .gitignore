@@ -27,3 +27,7 @@
 *.db
 *.sql
 *.sqlite
+
+akafun/settings.py
+.gitignore
+
