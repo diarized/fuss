@@ -1,0 +1,23 @@
+{% extends "lunch/base.html" %}
+{% block content %}
+<h2>New vendor</h2>
+<form action="/lunch/vendors/" method="POST">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% if vendors %}
+    <h2>Vendors list</h2>
+    <table>
+    <tr>
+    <th>ID</th>
+    <th>Vendor name</th>
+    </tr>
+    {% for vendor in vendors %}
+    <tr>
+    <td>{{ vendor.pk }}</td>
+    <td><a href="/lunch/meals/{{ vendor.pk }}">{{ vendor.name }}</a> (<a href="/lunch/events/current/vendors/{{ vendor.pk }}">current events</a>)</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

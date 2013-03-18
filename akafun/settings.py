@@ -20,7 +20,7 @@ DATABASES = {
     }
 }
 
-ADMIN_MEDIA_PREFIX = 'srv'
+#ADMIN_MEDIA_PREFIX = '/admin'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
@@ -51,7 +51,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/artur/fun/fuss/media/'
+MEDIA_ROOT = '/Users/arkamins/Scripts/Python/4akafun/akafun/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -62,7 +62,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/artur/fun/fuss/static/'
+STATIC_ROOT = '/Users/arkamins/Scripts/Python/4akafun/akafun/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -73,6 +73,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '/Users/arkamins/Scripts/Python/4akafun/akafun/fuss/static/',
 )
 
 # List of finder classes that know how to find static files in
@@ -150,7 +151,11 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
+<<<<<<< HEAD
             'filename': '/home/artur/Scripts/Python/4akafun/akafun/akafun/debug.log',
+=======
+            'filename': '/Users/arkamins/Scripts/Python/4akafun/akafun/debug.log',
+>>>>>>> c6ccf9b887f9efcd97ed6aa97464066a8225807d
             'formatter': 'simple'
             },
         },

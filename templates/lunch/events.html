@@ -1,0 +1,24 @@
+{% extends "lunch/base.html" %}
+{% load lunchtags %}
+{% block content %}
+<h2>New event</h2>
+<form action="/lunch/events/" method="POST">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% if events %}
+    <h2>Open events list</h2>
+    <table>
+    <tr>
+    <th>ID</th>
+    <th>Vendor name</th>
+    </tr>
+    {% for event in events %}
+    <tr>
+    <td>{{ event.pk }}</td>
+    <td><a href="/lunch/events/{{ event.pk }}">{{ event.vendor_name }}</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

@@ -30,3 +30,4 @@
 
 akafun/settings.py
 static
+.gitignore

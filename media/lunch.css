@@ -1,0 +1,123 @@
+@import url(http://fonts.googleapis.com/css?family=Racing+Sans+One&subset=latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Spinnaker);
+
+body, #header, #sidebar {
+  margin: 0;
+  padding: 0;
+  background-color: darkgrey;
+  color: white;
+  font-family: Spinnaker, sans-serif;
+}
+
+#header { 
+  background-color: lightgrey;
+}
+
+#header h1 {
+  margin: 0;
+  padding: 0.5em;
+  font: 3em 'Racing Sans One', cursive;
+  font-weight: bold;
+  text-align: right;
+  color: black;
+  border-bottom: 12px solid yellow;
+  text-shadow: 0.2em 0.2em 0.2em darkgrey;
+}
+
+#wrap {
+  clear: left;
+  float: left;
+  width: 100%;
+  overflow: hidden;
+  background-color: darkgrey;
+  /*background-color: lightgrey;*/
+}
+
+#leftwrap {
+  float: left;
+  width: 100%;
+  position: relative;
+  right: 80%;
+  background-color: lightgrey;
+}
+
+#sidebar {
+  float: left;
+  width: 20%;
+  position: relative;
+  left: 80%;
+  overflow: hidden;
+  background-color: lightgrey;
+  border-right: 10px solid yellow;
+}
+
+#sidebar ul, ul li {
+  margin: 0;
+  padding:0;
+  display: block;
+  list-style: none;
+}
+
+#sidebar ul a:link, ul a:visited {
+  display: block;
+  text-decoration: none;
+  background-color: lightgrey;
+  color: white;
+  padding: 0.2em;
+}
+
+#sidebar ul a:hover {
+  background-color: darkgrey;
+}
+
+#content {
+  float: left;
+  width: 75%;
+  position: relative;
+  left: 80%;
+  overflow: hidden;
+  padding: 1em;
+  border-left: 10px solid yellow;
+  margin-left: -10px;
+  background-color: darkgrey;
+}
+
+#content label {
+  display: block;
+  position: relative;
+  width: 15em;
+}
+
+#content a {
+  color: orange;
+}
+
+#content table {
+  background-color: darkgrey;
+}
+
+#content table th {
+  background-color: yellow;
+  color: black;
+}
+
+#content table th a {
+  color: black;
+}
+
+#content strong {
+  padding: 0 0 0 1em;
+  color: navy;
+  font-size: large;
+  font-weight: normal;
+}
+
+#footer {
+  clear: both;
+  background-color: maroon;
+  color: white;
+  padding: 0.5em;
+  font: 8px/1em sans-serif;
+  text-align: right;
+}
+
