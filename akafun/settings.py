@@ -150,7 +150,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/artur/fun/fuss/akafun/debug.log',
+            'filename': '/home/artur/Scripts/Python/4akafun/akafun/akafun/debug.log',
             'formatter': 'simple'
             },
         },
